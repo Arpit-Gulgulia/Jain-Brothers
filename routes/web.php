@@ -38,6 +38,14 @@ Route::prefix('/admin')->name('admin.')->namespace('Admin')->group(function (){
 
     });
 
+    Route::get('/category', 'CategoryController@index')->name('category.index');
+    Route::get('/category/create', 'CategoryController@create')->name('category.create');
+    Route::post('/category', 'CategoryController@store')->name('category.store');
+
+    Route::get('/subcategory', 'SubcategoryController@index')->name('subcategory.index');
+    Route::get('/subcategory/create', 'SubcategoryController@create')->name('subcategory.create');
+    Route::post('/subcategory', 'SubcategoryController@store')->name('subcategory.store');
+
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
 });
