@@ -13,12 +13,13 @@ class CreateSubcategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('subcategories', function (Blueprint $table) {
-            $table->bigIncrements('subcategory_id');
-            $table->string('name')->unique();
+        Schema::create('subcategories', function (Blueprint $table) { //Tshirts, pants, shirts, kurta etc
+            $table->bigIncrements('product_subcategory_id');
+            $table->bigInteger('product_category_id');
+            $table->string('product_subcategory_name');
             $table->timestamps();
 
-            $table->index('subcategory_id');
+            $table->index('product_subcategory_id');
         });
     }
 

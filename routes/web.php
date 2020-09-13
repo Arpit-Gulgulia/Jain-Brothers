@@ -46,6 +46,19 @@ Route::prefix('/admin')->name('admin.')->namespace('Admin')->group(function (){
     Route::get('/subcategory/create', 'SubcategoryController@create')->name('subcategory.create');
     Route::post('/subcategory', 'SubcategoryController@store')->name('subcategory.store');
 
+    Route::get('/product', 'ProductController@index')->name('product.index');
+    Route::get('/product/create', 'ProductController@create')->name('product.create');
+    Route::get('/product/{product}', 'ProductController@show')->name('product.show');
+    Route::get('/product/{product}/edit', 'ProductController@edit')->name('product.edit');
+    Route::put('/product/{product}', 'ProductController@update')->name('product.update');
+    Route::delete('/product/{product}', 'ProductController@destroy')->name('product.destroy');
+
+
+    Route::post('/product', 'ProductController@store')->name('product.store');
+    Route::post('/product/getCategories', 'ProductController@getCategories')->name('product.category');
+    Route::post('/product/getSubcategories', 'ProductController@getSubcategories')->name('product.subcategory');
+
+
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
 });
