@@ -27,8 +27,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('product_id', 'desc')->paginate(4);
-        return view('admin.product.index', compact('products'));
+        return view('admin.product.index', [
+            'products' => Product::orderBy('product_id', 'desc')->paginate(4)
+            ]);
     }
 
     /**
@@ -37,8 +38,9 @@ class ProductController extends Controller
      */
     public function create(Request $request)
     {
-        $persons = Person::all();
-        return view('admin.product.create', compact(['persons']));
+        return view('admin.product.create', [
+            'persons' => Person::all()
+        ]);
     }
 
     /**
