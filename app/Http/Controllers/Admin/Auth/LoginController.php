@@ -33,7 +33,7 @@ class LoginController extends Controller
         }
 
         // If unsuccessful, then redirect to login with form data
-        return redirect()->back()->withInput($request->only('email', 'remember'));
+        return redirect()->back()->withErrors(['email' => 'These credentials do not match our records.']);
     }
 
 }

@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index')->name('home');
+
 
 Auth::routes();
 
@@ -37,6 +36,27 @@ Route::prefix('/admin')->name('admin.')->namespace('Admin')->group(function (){
         Route::get('/password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
 
     });
+
+    Route::get('/category', 'CategoryController@index')->name('category.index');
+    Route::get('/category/create', 'CategoryController@create')->name('category.create');
+    Route::post('/category', 'CategoryController@store')->name('category.store');
+
+    Route::get('/subcategory', 'SubcategoryController@index')->name('subcategory.index');
+    Route::get('/subcategory/create', 'SubcategoryController@create')->name('subcategory.create');
+    Route::post('/subcategory', 'SubcategoryController@store')->name('subcategory.store');
+
+    Route::get('/product', 'ProductController@index')->name('product.index');
+    Route::get('/product/create', 'ProductController@create')->name('product.create');
+    Route::get('/product/{product}', 'ProductController@show')->name('product.show');
+    Route::get('/product/{product}/edit', 'ProductController@edit')->name('product.edit');
+    Route::put('/product/{product}', 'ProductController@update')->name('product.update');
+    Route::delete('/product/{product}', 'ProductController@destroy')->name('product.destroy');
+
+
+    Route::post('/product', 'ProductController@store')->name('product.store');
+    Route::post('/product/getCategories', 'ProductController@getCategories')->name('product.category');
+    Route::post('/product/getSubcategories', 'ProductController@getSubcategories')->name('product.subcategory');
+
 
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 

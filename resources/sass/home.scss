@@ -1,0 +1,141 @@
+.banner_left{
+    background-color: #E5E5E5;padding: 0;
+}
+.banner_left .banner_new_arrival{
+    margin: auto;
+    width: 50%;
+    text-align: center;
+    position: relative;
+    top: 40%;
+}
+.banner_left .banner_new_arrival .title{
+    font-size: 4rem;
+    line-height: 4.25rem;
+}
+.banner_left .banner_new_arrival .body{
+    margin-top: 15px;
+}
+.banner_left .banner_new_arrival .buttons{
+    text-align: center;
+}
+.banner_left .banner_new_arrival .buttons .shop_men,.shop_women{
+    display: inline-block;
+    margin-left: .75rem;
+    margin-right: .75rem;
+    margin-top: 15px;
+}
+.banner_left .banner_btn{
+    color: #FFFFFF;
+    background-color: #000000;
+    font-family: Helvetica Now,Helvetica,Arial,sans-serif;
+    font-weight: 700;
+    font-size: .75rem;
+    line-height: 1.125rem;
+    text-decoration: none !important;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    padding: .33rem 2rem;
+    text-transform: uppercase;
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    min-height: 56px;
+    border: none;
+}
+
+
+
+.new_product_listing a:link{
+    text-decoration: none;
+    color: #4e4c4b;
+}
+.new_product_listing .product-image-wrap {
+    border: 5px solid #fff;
+    background: #f5f5f5;
+    margin-bottom: .75rem;
+    position: relative;
+    display: block;
+}
+
+.new_product_listing .product_name{
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+.new_product_listing .product_price{
+    font-size: .875rem;
+    line-height: 1.3125rem;
+}
+
+.new_arrivals{
+    width: 100%;
+    background-image: url("/images/new_arrivals.jpg");
+    background-position: 50% 50%;
+    object-fit: cover;
+    background-repeat: no-repeat;
+}
+.new_arrivals_text{
+    width: 50%;
+    margin: auto;
+    position: relative;
+    top: 50%;
+    text-align: center;
+    color: #ffffff;
+    padding: 3%;
+}
+.new_arrivals-subtitle{
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 400;
+}
+.new_arrivals-title{
+    margin-top: 15px;
+    font-size: 3rem;
+    line-height: 3.25rem;
+    font-weight: 700;
+}
+.new_arrivals-button{
+    margin-top: 1.5rem;
+    display: inline-block;
+
+
+}
+.new_arrivals-button a:link{
+    text-decoration: underline;
+    color: #ffffff;
+    font-size: .875rem;
+    line-height: 1.3125rem;
+    text-transform: uppercase;
+}
+
+
+.best_seller_text{
+    width: 50%;
+    margin: auto;
+    padding: 31px;
+    text-align: center;
+}
+.best_seller_text .best_seller_title{
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.75rem;
+}
+.best_seller_text .best_seller_body{
+    margin-top: 15px;
+    font-weight: 400;
+}
+
+.image_wrapper{
+    border: 5px solid #fff;
+    background: #f5f5f5;
+    margin-bottom: .75rem;
+    position: relative;
+    display: block;
+}
+
+.product_type a{
+    color: #000000;
+}
