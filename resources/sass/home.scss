@@ -111,7 +111,9 @@
     text-transform: uppercase;
 }
 
-
+.best_seller{
+    padding-bottom: 1.5rem;
+}
 .best_seller_text{
     width: 50%;
     margin: auto;
@@ -138,4 +140,43 @@
 
 .product_type a{
     color: #000000;
+}
+
+.footer_wrapper{
+    border-bottom: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
+}
+
+.footer_wrapper_inside{
+    padding-top: 2.25rem;
+    padding-bottom: 2.25rem;
+}
+
+.footer_wrapper .footer_title{
+    font-weight: 900;
+    font-size: 1.1rem;
+    line-height: 1.3125rem;
+    text-decoration: none;
+    text-transform: none;
+    color: #000;
+}
+.footer_wrapper .footer_links a{
+    display: block;
+    padding: .375rem 0;
+    font-weight: 500;
+    font-size: .9rem;
+    line-height: 1.3125rem;
+    text-decoration: none;
+    text-transform: none;
+    color: #4e4c4b;
+}
+.social_media_wrapper .india_flag{
+    width: 40%;
+}
+.social_media_icon{
+    border: 2px solid #000000;
+    border-radius: 50%;
+    padding: 1.7% 1.6% 2.7%;
+    margin-left: 5%;
+    margin-right: 5%
 }
