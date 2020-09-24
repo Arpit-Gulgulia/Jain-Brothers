@@ -35,7 +35,7 @@
                 </div>
                 <div class="col-md-2">
                     <div class="logo_wapper">
-                        <img src="{{ asset('images/logo.png') }}" class="w-100" />
+                        <img src="{{ asset('images/Home/logo.png') }}" class="w-100" />
                     </div>
                 </div>
             </div>
@@ -47,7 +47,7 @@
          <div class="row">
              <div class="col-md-1">
                  <div class="india_flag">
-                     <img src="{{ asset('images/india.svg') }}" class="w-100"/>
+                     <img src="{{ asset('images/Home/india.svg') }}" class="w-100"/>
                  </div>
              </div>
              <div class="col-md-2 text-center">

@@ -9,7 +9,7 @@ class ProductDetail extends Model
     protected $primaryKey = 'product_details_id';
 
     protected $fillable = [
-        'product_id', 'product_size', 'product_color', 'product_stock', 'product_description'
+        'product_id', 'size', 'color', 'stock', 'description'
     ];
 
 }

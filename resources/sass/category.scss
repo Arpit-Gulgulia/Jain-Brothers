@@ -1,0 +1,53 @@
+.category_page{
+    background-color: #F5F5F5;
+}
+.name{
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 1.75rem;
+    text-decoration: none;
+    text-transform: none;
+    margin-top: 3rem;
+    text-align: center;
+}
+.banner_right{
+    padding-right: 3.75rem;
+    padding-left: 3.75rem;
+}
+.category_titles_box{
+    padding-top: 2.25rem;
+    padding-bottom: 2.25rem;
+}
+.category_titles{
+    border: 2px solid #000;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+.category_titles a{
+    color: #000000;
+}
+
+.category_page .info{
+    padding-right: 3.75rem;
+    padding-left: 3.75rem;
+    padding-top: 3.75rem;
+}
+.category_page .info .subheadline{
+    padding-bottom: 1.5rem;
+}
+
+.category_page .info .title{
+    font-size: 3rem;
+    line-height: 3.25rem;
+}
+.category_page .info .description{
+    padding-bottom: 1.5rem;
+}
+.category_page .shop_men a:link{
+    padding: .6rem 1.5rem .5rem;
+    line-height: 1.5;
+    color: #000000;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: 1px solid #000000;
+}

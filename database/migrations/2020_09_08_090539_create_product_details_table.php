@@ -16,10 +16,10 @@ class CreateProductDetailsTable extends Migration
         Schema::create('product_details', function (Blueprint $table) {
             $table->bigIncrements('product_details_id');
             $table->bigInteger('product_id');
-            $table->string('product_size');
-            $table->string('product_color');
-            $table->string('product_stock');
-            $table->text('product_description');
+            $table->string('size');
+            $table->string('color');
+            $table->string('stock');
+            $table->text('description');
             $table->timestamps();
 
             $table->index('product_details_id');

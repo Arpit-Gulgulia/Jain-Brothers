@@ -15,16 +15,16 @@
                     </div>
                     <div class="buttons text-center">
                         <div class="shop_men" style="">
-                            <a class="banner_btn">Shop Men</a>
+                            <a class="banner_btn" href="{{  route('category.show' , ['consumer' => 'Men']) }}">Shop Men</a>
                         </div>
                         <div class="shop_women" style="">
-                           <a class="banner_btn" >Shop Women</a>
+                           <a class="banner_btn" href="{{  route('category.show' , ['consumer' => 'Women']) }}">Shop Women</a>
                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-6" style="padding: 0">
-                <img src="{{ asset('images/banner3.jpg') }}" class="w-100" />
+                <img src="{{ asset('images/home/banner3.jpg') }}" class="w-100" />
             </div>
         </div>
     </div>
@@ -149,39 +149,39 @@
                 <div class="col-6 col-md-4">
                     <div class="container-fluid">
                         <div class="image_wrapper">
-                            <a href="#" class="product-image-wrap">
-                                <img src="{{ asset('images/women.png') }}"
+                            <a href="{{  route('category.show' , ['consumer' => 'Women']) }}" class="product-image-wrap">
+                                <img src="{{ asset('images/Home/women.png') }}"
                                      class="w-100" />
                             </a>
                         </div>
                         <div class="product_type">
-                            <a href="#"><strong><u>Women's</u></strong></a>
+                            <a href="{{  route('category.show' , ['consumer' => 'Women']) }}"><strong><u>Women's</u></strong></a>
                         </div>
                     </div>
                 </div>
                 <div class="col-6 col-md-4">
                     <div class="container-fluid">
                         <div class="image_wrapper">
-                            <a href="#" class="product-image-wrap">
-                                <img src="{{ asset('images/men.jpg') }}"
+                            <a href="{{  route('category.show' , ['consumer' => 'Men']) }}" class="product-image-wrap">
+                                <img src="{{ asset('images/Home/men.jpg') }}"
                                      class="w-100" />
                             </a>
                         </div>
                         <div class="product_type">
-                            <a href="#"><strong><u>Men's</u></strong></a>
+                            <a href="{{  route('category.show' , ['consumer' => 'Men']) }}"><strong><u>Men's</u></strong></a>
                         </div>
                     </div>
                 </div>
                 <div class="col-6 col-md-4">
                     <div class="container-fluid">
                         <div class="image_wrapper">
-                            <a href="#" class="product-image-wrap">
-                                <img src="{{ asset('images/kids.jpg') }}"
+                            <a href="{{  route('category.show' , ['consumer' => 'Kids']) }}" class="product-image-wrap">
+                                <img src="{{ asset('images/Home/kids.jpg') }}"
                                      class="w-100" />
                             </a>
                         </div>
                         <div class="product_type">
-                            <a href="#"><strong><u>Kid's</u></strong></a>
+                            <a href="{{  route('category.show' , ['consumer' => 'Kids']) }}"><strong><u>Kid's</u></strong></a>
                         </div>
                     </div>
                 </div>

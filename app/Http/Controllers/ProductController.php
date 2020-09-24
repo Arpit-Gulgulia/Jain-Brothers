@@ -1,22 +1,41 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Category;
+use App\Person;
+use App\Product;
+use App\Subcategory;
+use App\Tag;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
-class CategoryController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param $consumer
+     * @return void
      */
-    public function index()
+    public function listing(Person $consumer, $category)
     {
-        $categories = Category::all()->pluck('name');
-        return view('admin.category.index', compact('categories'));
+        //Check and Get categoryModel associated with person
+        $categoryModel = $consumer->categories()->where('product_category_name', $category)->firstOrFail();
+
+        //If category found is Main category, found its all subcategory
+        $subcategories = $categoryModel->parentId==0 ? Category::where('parentId', $categoryModel->product_category_id)->get() : $categoryModel;
+
+        //Fetch all products corresponding to subcategory or all categories of maincategory
+        $products = Product::where([
+            'person_id' => $consumer->person_id,
+        ])->whereIn('product_category_id', $subcategories)->get();
+
+        return view('product.listing', compact('products'));
+    }
+
+    public function fashionStore(Tag $tag){
+
     }
 
     /**
@@ -26,7 +45,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.category.create');
+        //
     }
 
     /**
@@ -37,15 +56,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => ['required', 'string', 'max:255', 'unique:categories']
-        ]);
-
-        $category = new Category();
-        $category->name = $request->name;
-        $category->save();
-
-        return redirect(route('admin.category.index'));
+        //
     }
 
     /**
