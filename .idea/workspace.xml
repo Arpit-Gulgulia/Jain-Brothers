@@ -6,11 +6,30 @@
   <component name="ChangeListManager">
     <list default="true" id="f779b9c8-5d0a-4a71-b157-db517d0002e8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Category.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Category.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/CategoryController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Person.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Person.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Product.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ProductDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ProductDetail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Subcategory.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_07_132014_create_products_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_07_132014_create_products_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_07_143415_create_categories_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_07_143415_create_categories_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_08_090539_create_product_details_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_08_090539_create_product_details_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_08_102133_create_persons_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_08_102133_create_persons_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/banner3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/india.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/kids.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/men.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/new_arrivals.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/women.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/sass/home.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/home.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/include/footer.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/include/footer.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/include/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/include/header.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,13 +146,14 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Giift-Shops/tborewards" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="watcher.settings" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\Dev\Jain-Brothers\resources\views\product" />
       <recent name="C:\wamp64\www\Dev\Jain-Brothers\resources\views\layouts\include" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
@@ -172,6 +192,16 @@
       <workItem from="1600152336487" duration="6326000" />
       <workItem from="1600232763568" duration="21702000" />
       <workItem from="1600318863211" duration="12040000" />
+      <workItem from="1600347693157" duration="221000" />
+      <workItem from="1600406244395" duration="26187000" />
+      <workItem from="1600491903172" duration="16507000" />
+      <workItem from="1600539803809" duration="2132000" />
+      <workItem from="1600582557863" duration="13687000" />
+      <workItem from="1600660339446" duration="14000" />
+      <workItem from="1600799743789" duration="4701000" />
+      <workItem from="1600837208839" duration="762000" />
+      <workItem from="1600874683475" duration="118000" />
+      <workItem from="1600885298763" duration="2160000" />
     </task>
     <servers />
   </component>
@@ -179,10 +209,10 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="398" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1599479814162">
+    <state x="398" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1600410368157">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="398" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.824@0.0.1536.824" timestamp="1599479814162" />
+    <state x="398" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.824@0.0.1536.824" timestamp="1600410368157" />
     <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1599910596867">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -191,10 +221,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="499" y="167" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1536.824@0.0.1536.824" timestamp="1599546908516" />
-    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1600318905220">
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1600874800587">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1600318905220" />
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1600874800587" />
     <state width="1493" height="204" key="GridCell.Tab.0.bottom" timestamp="1600239141865">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -211,14 +241,14 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="204" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1600239141865" />
-    <state x="493" y="119" key="NewPhpClassDialog" timestamp="1599540037928">
+    <state x="493" y="119" key="NewPhpClassDialog" timestamp="1600492207204">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="493" y="119" key="NewPhpClassDialog/0.0.1536.824@0.0.1536.824" timestamp="1599540037928" />
-    <state x="604" y="332" key="NewPhpFileDialog" timestamp="1600334982788">
+    <state x="493" y="119" key="NewPhpClassDialog/0.0.1536.824@0.0.1536.824" timestamp="1600492207204" />
+    <state x="604" y="332" key="NewPhpFileDialog" timestamp="1600887653956">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="604" y="332" key="NewPhpFileDialog/0.0.1536.824@0.0.1536.824" timestamp="1600334982788" />
+    <state x="604" y="332" key="NewPhpFileDialog/0.0.1536.824@0.0.1536.824" timestamp="1600887653956" />
     <state x="277" y="57" key="SettingsEditor" timestamp="1600241014696">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -227,9 +257,9 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="425" y="187" width="672" height="677" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1600345151535" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1600328851726">
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1600885884915">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1600328851726" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1600885884915" />
   </component>
 </project>

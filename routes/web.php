@@ -17,6 +17,10 @@ Route::get('/', 'HomeController@index')->name('home');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/c/{consumer}', 'CategoryController@index')->name('category.show');
+Route::get('/p/{consumer}/{category}', 'ProductController@listing')->name('product.list');
+Route::get('/fashion-store/{tag}', 'ProductController@fashionStore')->name('product.fashionStore');
+
 
 // Admin Routes
 Route::prefix('/admin')->name('admin.')->namespace('Admin')->group(function (){
@@ -39,11 +43,13 @@ Route::prefix('/admin')->name('admin.')->namespace('Admin')->group(function (){
 
     Route::get('/category', 'CategoryController@index')->name('category.index');
     Route::get('/category/create', 'CategoryController@create')->name('category.create');
+    Route::get('/category/{id}', 'CategoryController@show')->name('category.show');
+    Route::get('/category/{id}/edit', 'CategoryController@edit')->name('category.edit');
+    Route::put('/category/{id}', 'CategoryController@update')->name('category.update');
+    Route::patch('/category/{id}', 'CategoryController@destroy')->name('category.destroy');
+
     Route::post('/category', 'CategoryController@store')->name('category.store');
 
-    Route::get('/subcategory', 'SubcategoryController@index')->name('subcategory.index');
-    Route::get('/subcategory/create', 'SubcategoryController@create')->name('subcategory.create');
-    Route::post('/subcategory', 'SubcategoryController@store')->name('subcategory.store');
 
     Route::get('/product', 'ProductController@index')->name('product.index');
     Route::get('/product/create', 'ProductController@create')->name('product.create');

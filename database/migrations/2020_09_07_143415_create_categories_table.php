@@ -14,12 +14,15 @@ class CreateCategoriesTable extends Migration
     public function up()
     {
         Schema::create('categories', function (Blueprint $table) { //Topwear, bottomwear etc
-            $table->bigIncrements('product_category_id');
+            $table->bigIncrements('category_id');
             $table->bigInteger('person_id');
-            $table->string('product_category_name');
+            $table->bigInteger('parent_id')->default(0);
+            $table->string('name');
+            $table->string('url');
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
 
-            $table->index('product_category_id');
+            $table->index('category_id');
         });
     }
 

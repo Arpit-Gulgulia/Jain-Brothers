@@ -11,16 +11,16 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}">{{ __('New') }}</a>
+                    <a class="nav-link" href="{{ route('category.show' , ['consumer' => 'New']) }}">{{ __('New') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}">{{ __('Women') }}</a>
+                    <a class="nav-link" href="{{  route('category.show' , ['consumer' => 'Women']) }}">{{ __('Women') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}">{{ __('Men') }}</a>
+                    <a class="nav-link" href="{{  route('category.show' , ['consumer' => 'Men']) }}">{{ __('Men') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}">{{ __('Kids') }}</a>
+                    <a class="nav-link" href="{{  route('category.show' , ['consumer' => 'Kids']) }}">{{ __('Kids') }}</a>
                 </li>
             </ul>
 
