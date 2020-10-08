@@ -46,7 +46,7 @@ Route::prefix('/admin')->name('admin.')->namespace('Admin')->group(function (){
     Route::get('/category/{id}', 'CategoryController@show')->name('category.show');
     Route::get('/category/{id}/edit', 'CategoryController@edit')->name('category.edit');
     Route::put('/category/{id}', 'CategoryController@update')->name('category.update');
-    Route::patch('/category/{id}', 'CategoryController@destroy')->name('category.destroy');
+    Route::delete('/category/{id}', 'CategoryController@destroy')->name('category.destroy');
 
     Route::post('/category', 'CategoryController@store')->name('category.store');
 

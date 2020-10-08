@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
@@ -27,9 +28,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('admin.product.index', [
-            'products' => Product::orderBy('product_id', 'desc')->paginate(4)
-            ]);
+        $consumer = request()->query('consumer', 'men');
+        $consumer = Person::where('name', $consumer)->firstOrFail();
+        $products = $consumer->products()->orderBy('product_id', 'asc')->paginate(4);
+
+        return view('admin.product.index', compact('products'));
     }
 
     /**
@@ -38,9 +41,12 @@ class ProductController extends Controller
      */
     public function create(Request $request)
     {
-        return view('admin.product.create', [
-            'persons' => Person::all()
-        ]);
+        $consumer = request()->query('consumer', 'men');
+        $consumer = Person::where('name', $consumer)->firstOrFail();
+
+        $selectBoxHtml = $this->createCategoriesSelectBox($consumer);
+
+        return view('admin.product.create', compact('consumer','selectBoxHtml'))->render();
     }
 
     /**
@@ -51,25 +57,37 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+
         $validatedData = $request->validate( [
-           'person_id' => 'required',
-            'product_category_id' => 'required',
-            'product_subcategory_id' => 'required',
-            'product_name' => 'required|string|max:255',
-            'product_price' => 'required|integer',
-            'product_image' => 'required|image|mimes:jpg,png,jpeg,svg|max:2000',
-            'product_color' => 'required|string',
-            'product_size' => 'required|string',
-            'product_stock' => 'required|string',
-            'product_description' => 'required|string',
+           'person_id' => 'required|integer',
+            'category_id' => 'required|integer',
+            'name' => 'required|string|max:255',
+            'code' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'image' => 'required|image|mimes:jpg,png,jpeg,svg|max:2000',
+            'color' => 'required|string',
+            'size' => 'required|string',
+            'stock' => 'required|string',
+            'description' => 'required|string',
         ]);
-        if ($request->has('product_image')){
-            if ($request->file('product_image')->isValid()){
-                $imagePath = $request->file('product_image')->store('Uploads/Products', 'public');
-                $image = Image::make(public_path("storage/{$imagePath}"))->fit(350, 350);
+
+        if ($request->has('image')){
+            $image_tmp = $request->file('image');
+            if ($image_tmp->isValid()){
+
+                $imagePath = $request->file('image')->store('Uploads/Admin/Products/Large', 'public');
+                $image = Image::make(public_path("storage/{$imagePath}"))->resize(1080, 1440);
                 $image->save();
 
-                $validatedData['product_image'] = $imagePath;
+//                $imagePath = $request->file('image')->store('Uploads/Admin/Products/Medium', 'public');
+//                $image = Image::make(public_path("storage/{$imagePath}"))->resize(540, 720);
+//                $image->save();
+//
+//                $imagePath = $request->file('image')->store('Uploads/Admin/Products/Small', 'public');
+//                $image = Image::make(public_path("storage/{$imagePath}"))->resize(270, 360);
+//                $image->save();
+
+                $validatedData['image'] = $image->basename;
 
                 $product = Product::create($validatedData);
                 $product->productDetails()->create($validatedData);
@@ -77,7 +95,7 @@ class ProductController extends Controller
                 return Redirect::to(route('admin.product.index'))->with('message', 'Product added successfully!');
             }
         }
-        return Redirect::to(route('admin.product.create'))->with('error', 'Something went wrong. Could not add product');
+        return Redirect::to(route('admin.product.create'))->with('message', 'Something went wrong. Could not add product');
 
     }
 
@@ -101,9 +119,12 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $persons = Person::all();
+        $consumer = $product->person()->firstOrFail();
+
+        $selectBoxHtml = $this->createCategoriesSelectBox($consumer);
+
         $productDetails = $product->productDetails;
-        return view('admin.product.edit', compact('persons','product', 'productDetails'));
+        return view('admin.product.edit', compact('selectBoxHtml','product', 'productDetails'));
     }
 
     /**
@@ -114,27 +135,27 @@ class ProductController extends Controller
      */
     public function update(Product $product)
     {
-        $validatedData = request()->validate([
-            'person_id' => 'nullable|numeric',
-            'product_category_id' => 'required_with:person_id',
-            'product_subcategory_id' => 'required_with:person_id',
-            'product_name' => 'nullable|string|max:255',
-            'product_price' => 'nullable|integer',
-            'product_image' => 'nullable|image|mimes:jpg,png,jpeg,svg|max:1000',
-            'product_color' => 'nullable|string',
-            'product_size' => 'nullable|string',
-            'product_stock' => 'nullable|string',
-            'product_description' => 'nullable|string',
+        $validatedData = request()->validate( [
+            'person_id' => 'required|integer',
+            'category_id' => 'required|integer',
+            'name' => 'required|string|max:255',
+            'code' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'image' => 'image|mimes:jpg,png,jpeg,svg|max:2000',
+            'color' => 'required|string',
+            'size' => 'required|string',
+            'stock' => 'required|string',
+            'description' => 'required|string',
         ]);
 
-        if (request()->has('product_image')){
-            if (request()->file('product_image')->isValid()){
-                unlink(('storage/'.$product->product_image));
-                $imagePath = request()->file('product_image')->store('Uploads/Products', 'public');
-                $image = Image::make(public_path("storage/{$imagePath}"))->fit(350, 350);
+        if (request()->has('image')){
+            if (request()->file('image')->isValid()){
+                Storage::delete('public/Uploads/Admin/Products/Large/'.$product->image);
+                $imagePath = request()->file('image')->store('Uploads/Admin/Products/Large', 'public');
+                $image = Image::make(public_path("storage/{$imagePath}"))->resize(1080, 1440);
                 $image->save();
 
-                $validatedData['product_image'] = $imagePath;
+                $validatedData['image'] = $image->basename;;
 
             }
         }
@@ -157,17 +178,40 @@ class ProductController extends Controller
     }
 
     //AJAX CALLS
-    protected function getCategories(Request $request){
-        $person_id = $request->input('person_id');
-        $categories = Category::where('person_id', $person_id)->get();
-//        $categories = Person::find($person_id)->categories;
-        return response()->json($categories);
+//    protected function getCategories(Request $request){
+//        $person_id = $request->input('person_id');
+//        $categories = Category::where(['person_id' => $person_id, 'parent_id'])->get();
+////        $categories = Person::find($person_id)->categories;
+//        return response()->json($categories);
+//    }
+
+//    protected function getSubcategories(Request $request){
+//        $category_id = $request->input('category_id');
+//        $subcategories = Subcategory::where('product_category_id', $category_id)->get();
+////        $subcategories = Category::find($category_id)->subcategories;
+//        return response()->json($subcategories);
+//    }
+
+    protected function createCategoriesSelectBox(Person $consumer){
+
+        $categories = $consumer->categories()->where('parent_id', 0)->get();
+
+        $selectBoxHtml = "<select name='category_id' id='category_id' required>
+                            <option value=''>Select Product Category</option>";
+
+        foreach ($categories as $category){
+
+            $selectBoxHtml .= "<option disabled class='text-white bg-secondary'>$category->name</option>";
+
+            $subCategories = Category::where('parent_id', $category->category_id)->get();
+
+            foreach ($subCategories as $subCategory){
+                $selectBoxHtml .= "<option value='$subCategory->category_id'>$subCategory->name</option>";
+            }
+        }
+        $selectBoxHtml .= "</select>";
+
+        return $selectBoxHtml;
     }
 
-    protected function getSubcategories(Request $request){
-        $category_id = $request->input('category_id');
-        $subcategories = Subcategory::where('product_category_id', $category_id)->get();
-//        $subcategories = Category::find($category_id)->subcategories;
-        return response()->json($subcategories);
-    }
 }
