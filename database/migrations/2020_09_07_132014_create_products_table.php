@@ -17,7 +17,8 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('product_id');
             $table->bigInteger('person_id');
             $table->string('name');
-            $table->bigInteger('price');
+            $table->string('code');
+            $table->decimal('price');
             $table->string('image');
             $table->bigInteger('category_id');
             $table->bigInteger('tag_id');

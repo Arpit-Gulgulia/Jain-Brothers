@@ -10,7 +10,11 @@ class Category extends Model
 
     protected $primaryKey = 'category_id';
 
-    public function products(){
+    protected $fillable = ['person_id', 'parent_id', 'name', 'url', 'status'];
 
+    public function person(){
+        return $this->belongsTo(Person::class, 'person_id');
     }
+
+
 }

@@ -3,11 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use App\Person;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +22,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all()->pluck('name');
+        $consumer = request()->query('consumer', 'men');
+        $consumer = Person::where('name', $consumer)->firstOrFail();
+//        dd($consumer->categories);
+        $categories = $consumer->categories()->orderBy('parent_id', 'asc')->paginate(10);
         return view('admin.category.index', compact('categories'));
     }
 
@@ -26,7 +36,10 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.category.create');
+        $consumer = request()->query('consumer', 'men');
+        $consumer = Person::where('name', $consumer)->firstOrFail();
+        $categories = $consumer->categories()->where('parent_id', 0)->get();
+        return view('admin.category.create', compact('consumer','categories'));
     }
 
     /**
@@ -37,15 +50,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => ['required', 'string', 'max:255', 'unique:categories']
+        $validatedData =$request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'parent_id' => ['required', 'integer'],
+            'person_id' => ['required', 'integer'],
+            'url' => ['required', 'string']
         ]);
+//dd($validatedData);
+        $category = Category::create($validatedData);
 
-        $category = new Category();
-        $category->name = $request->name;
-        $category->save();
-
-        return redirect(route('admin.category.index'));
+        return redirect(route('admin.category.index'))->with('message', 'Category added successfully!');
     }
 
     /**
@@ -62,12 +76,14 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Category $id
+     * @return void
      */
-    public function edit($id)
+    public function edit(Category $id)
     {
-        //
+        $categories = Category::where('parent_id', 0)->get();
+        $persons = Person::all();
+        return view('admin.category.edit', ['data' => $id, 'categories' => $categories, 'persons' => $persons]);
     }
 
     /**
@@ -77,19 +93,37 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Category $id)
     {
-        //
+        $data = request()->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'category' => ['required', 'integer'],
+            'person' => ['required', 'integer'],
+            'url' => ['required', 'string'],
+            'status' => ['required', 'integer']
+        ]);
+
+        $id->update([
+            'person_id' => $data['person'],
+            'parent_id' => $data['category'],
+            'name' => $data['name'],
+            'url' => $data['url'],
+            'status' => $data['status']
+        ]);
+
+        return redirect(route('admin.category.index'))->with('message', 'Category Updated successfully!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Category $id
+     * @return void
      */
-    public function destroy($id)
+    public function destroy(Category $id)
     {
-        //
+
+        $id->delete();
+        return redirect(route('admin.category.index'))->with('message', 'Category deleted successfully!');
     }
 }

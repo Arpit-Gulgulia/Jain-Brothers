@@ -1,45 +1,85 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 
 @section('content')
-    <div class="flash-message w-50 mx-auto text-center">
-        @if($message = Session::get('message'))
-            <p class="alert alert-success">{{ $message }}</p>
-        @elseif($message = Session::get('error'))
-            <p class="alert alert-danger">{{ $message }}</p>
+    <div class="container-fluid">
+
+        @if(Session::has('message'))
+            <p class="alert alert-info text-center">{{ Session::get('message') }}</p>
         @endif
-{{--        @if($errors->any())--}}
-{{--            @foreach ($errors->all() as $error)--}}
-{{--                <div>{{ $error }}</div>--}}
-{{--            @endforeach--}}
-{{--        @endif--}}
+
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Products List</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group mr-2">
+                        <a href="{{ route('admin.product.index', ['consumer' => 'men']) }}"  class="active btn btn-sm btn-outline-secondary">Men</a>
+                        <a href="{{ route('admin.product.index', ['consumer' => 'women']) }}"  class="btn btn-sm btn-outline-secondary">Women</a>
+                        <a href="{{ route('admin.product.index', ['consumer' => 'kids']) }}"  class="btn btn-sm btn-outline-secondary">Kids</a>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Add New Product
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="{{ route('admin.product.create', ['consumer' => 'men']) }}">Men</a>
+                        <a class="dropdown-item" href="{{ route('admin.product.create', ['consumer' => 'women']) }}">Women</a>
+                        <a class="dropdown-item" href="{{ route('admin.product.create', ['consumer' => 'kids']) }}">Kids</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="table-responsive">
+            @if(count($products) > 0)
+                <table class="table table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>Product Id</th>
+                        <th>Consumer Type</th>
+                        <th>Category Id</th>
+                        <th>Product Code</th>
+                        <th>Product Name</th>
+                        <th>Product Price</th>
+                        <th>Product Image</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($products as $product)
+                        <tr>
+                            <td>{{ $product->product_id }}</td>
+                            <td>{{ $product->person->name }}</td>
+                            <td>{{ $product->category->name }}</td>
+                            <td>{{ $product->code }}</td>
+                            <td>{{ $product->name }}</td>
+                            <td>{{ $product->price }}</td>
+                            <td><img src="/storage/Uploads/Admin/Products/Large/{{ $product->image }}" width="75px"></td>
+                            <td>
+                                <a href="{{ route('admin.product.edit', ['id' => $product->product_id]) }}">
+                                    <span data-feather="edit"></span>
+                                </a>
+                                <a href="{{ route('admin.product.destroy', ['id' => $product->product_id]) }}"
+                                   onclick="event.preventDefault(); document.getElementById('product-destroy-{{ $product->product_id }}').submit();">
+                                    <span data-feather="delete"></span>
+                                    <form id="product-destroy-{{ $product->product_id }}"
+                                          action="{{  route('admin.product.destroy', ['id' => $product->product_id]) }}"
+                                          method="POST"
+                                          style="display: none;">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+                    <div class="w-25 mx-auto text-dark pl-lg-5">
+                        {{ $products->links() }}
+                    </div>
+            @else
+                <p class="alert alert-info text-center mx-auto w-50">
+                    No Product found in database!
+                </p>
+            @endif
+        </div>
     </div>
-   <div class="container">
-       <div class="row">
-           @foreach($products as $product)
-               <div class="col-sm-3 py-3">
-                   <div class="card">
-                       <a href="{{ route('admin.product.show', ['product' => $product->product_id]) }}">
-                           <img class="card-img-top" src="/storage/{{ $product->product_image }}" alt="Card image cap">
-                           <div class="card-body">
-                               <h5 class="card-title">{{ $product->product_name }}</h5>
-                               <p class="card-text">{{ $product->product_description }}</p>
-                               <a class="card-link btn btn-primary" href="{{  route('admin.product.edit', ['product' => $product->product_id]) }}">Edit</a>
-                               <form class="d-inline" action="{{ route('admin.product.destroy', ['product' => $product->product_id]) }}" method="POST">
-                                   @csrf
-                                   @method('DELETE')
-                                   <button type="submit" class="card-link btn btn-danger">Delete</button>
-                               </form>
-                               <p class="card-text"><small class="text-muted">Uploaded at {{$product->created_at}} </small></p>
-                           </div>
-                       </a>
-                   </div>
-               </div>
-           @endforeach
-       </div>
-       <div class="row">
-           <div class="col-md-12 d-flex justify-content-center">
-               {{ $products->links() }}
-           </div>
-       </div>
-   </div>
 @endsection

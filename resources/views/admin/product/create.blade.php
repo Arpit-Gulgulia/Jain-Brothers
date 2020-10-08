@@ -1,17 +1,15 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 
 @section('content')
     <div class="flash-message">
-                    @if($message = Session::get('success'))
-                        <p class="alert alert-success">{{ $message }}</p>
-                    @elseif($message = Session::get('error'))
-                        <p class="alert alert-danger">{{ $message }}</p>
-                    @endif
-                    @if($errors->any())
-                        @foreach ($errors->all() as $error)
-                <div>{{ $error }}</div>
-            @endforeach
+        @if(Session::has('message'))
+            <p class="alert alert-info text-center">{{ Session::get('message') }}</p>
         @endif
+{{--            @if ($errors->any())--}}
+{{--                @foreach ($errors->all() as $error)--}}
+{{--                    <div>{{$error}}</div>--}}
+{{--                @endforeach--}}
+{{--            @endif--}}
     </div>
     <div class="container">
         <div class="row justify-content-center">
@@ -24,15 +22,12 @@
 
                             {{-- Select Clothing Category --}}
                             <div class="form-group row">
-                                <label for="person" class="col-md-4 col-form-label text-md-right">{{ __('Person') }}</label>
+                                <label for="person" class="col-md-4 col-form-label text-md-right">{{ __('Consumer Type') }}</label>
 
                                 <div class="col-md-6">
-                                    <select name="person_id" id="person_id" onchange="getCategories(this.value)" class="@error('person_id') is-invalid @enderror" required>
-                                        <option value="">Select Person Category</option>
-                                        @foreach($persons as $person)
-                                            <option value="{{ $person->person_id }}">{{ $person->person_name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <input class="form-control @error('person_id') is-invalid @enderror" type="text" placeholder="{{ $consumer->name }}" readonly>
+                                    <input type="text" name="person_id" value="{{ $consumer->person_id }}" class="form-control"  hidden>
+
                                     @error('person_id')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -43,31 +38,11 @@
 
                             {{-- Product Category --}}
                             <div class="form-group row">
-                                <label for="category" class="col-md-4 col-form-label text-md-right">{{ __('Category') }}</label>
+                                <label for="category" class="col-md-4 col-form-label text-md-right">{{ __('Product Category') }}</label>
 
                                 <div class="col-md-6">
-                                    <select name="product_category_id" id="product_category_id" onchange="getSubcategories(this.value)" class="@error('product_category_id') is-invalid @enderror"  required>
-                                        <option value>Select Category</option>
-                                    </select>
-                                    <img id="loader" style="display: none" src="{{ asset('images/loader.gif') }}" />
-                                    @error('product_category_id')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            {{-- Product Sub Category --}}
-                            <div class="form-group row">
-                                <label for="subcategory" class="col-md-4 col-form-label text-md-right">{{ __('Sub Category') }}</label>
-
-                                <div class="col-md-6">
-                                    <select name="product_subcategory_id" id="product_subcategory_id" class="@error('product_subcategory_id') is-invalid @enderror" required>
-                                        <option value>Select Sub Category</option>
-                                    </select>
-                                    <img id="loader" style="display: none" src="{{ asset('images/loader.gif') }}" />
-                                    @error('product_subcategory_id')
+                                    {!! $selectBoxHtml !!}
+                                    @error('category_id')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -80,16 +55,38 @@
                                 <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Product Name') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="product_name"
+                                    <input id="name"
                                            type="text"
-                                           class="form-control @error('product_name') is-invalid @enderror"
-                                           name="product_name"
+                                           class="form-control @error('name') is-invalid @enderror"
+                                           name="name"
                                            placeholder="Enter Product Name"
-                                           value="{{ old('product_name') }}"
-                                           required autocomplete="product_name"
+                                           value="{{ old('name') }}"
+                                           required autocomplete="name"
                                            autofocus>
 
-                                    @error('product_name')
+                                    @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            {{-- Code --}}
+                            <div class="form-group row">
+                                <label for="code" class="col-md-4 col-form-label text-md-right">{{ __('Product Code') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="code"
+                                           type="text"
+                                           class="form-control @error('code') is-invalid @enderror"
+                                           name="code"
+                                           placeholder="Enter Product Code"
+                                           value="{{ old('code') }}"
+                                           required autocomplete="code"
+                                           autofocus>
+
+                                    @error('code')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -102,15 +99,15 @@
                                 <label for="price" class="col-md-4 col-form-label text-md-right">{{ __('Product Price') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="product_price"
+                                    <input id="price"
                                            type="number"
-                                           class="form-control @error('product_price') is-invalid @enderror"
-                                           name="product_price"
+                                           class="form-control @error('price') is-invalid @enderror"
+                                           name="price"
                                            placeholder="Enter Product price."
-                                           value="{{ old('product_price') }}"
-                                           required autocomplete="product_price">
+                                           value="{{ old('price') }}"
+                                           required autocomplete="price">
 
-                                    @error('product_price')
+                                    @error('price')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -123,14 +120,14 @@
                                 <label for="image" class="col-md-4 col-form-label text-md-right">{{ __('Product Image') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="product_image"
+                                    <input id="image"
                                            type="file"
-                                           class="form-control @error('product_image') is-invalid @enderror"
-                                           name="product_image"
-                                           value="{{ old('product_image') }}"
+                                           class="form-control @error('image') is-invalid @enderror"
+                                           name="image"
+                                           value="{{ old('image') }}"
                                            required>
 
-                                    @error('product_image')
+                                    @error('image')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -143,16 +140,16 @@
                                 <label for="size" class="col-md-4 col-form-label text-md-right">{{ __('Product Size') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="product_size"
+                                    <input id="size"
                                            type="text"
-                                           class="form-control @error('product_size') is-invalid @enderror"
-                                           name="product_size"
+                                           class="form-control @error('size') is-invalid @enderror"
+                                           name="size"
                                            placeholder="Enter Product Size"
-                                           value="{{ old('product_size') }}"
-                                           required autocomplete="product_size"
+                                           value="{{ old('size') }}"
+                                           required autocomplete="size"
                                            autofocus>
 
-                                    @error('product_size')
+                                    @error('size')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -165,16 +162,16 @@
                                 <label for="color" class="col-md-4 col-form-label text-md-right">{{ __('Product Color') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="product_color"
+                                    <input id="color"
                                            type="text"
-                                           class="form-control @error('product_color') is-invalid @enderror"
-                                           name="product_color"
+                                           class="form-control @error('color') is-invalid @enderror"
+                                           name="color"
                                            placeholder="Enter Product Color"
-                                           value="{{ old('product_color') }}"
-                                           required autocomplete="product_color"
+                                           value="{{ old('color') }}"
+                                           required autocomplete="color"
                                            autofocus>
 
-                                    @error('product_color')
+                                    @error('color')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -187,15 +184,15 @@
                                 <label for="stock" class="col-md-4 col-form-label text-md-right">{{ __('Product Stock') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="product_stock"
+                                    <input id="stock"
                                            type="number"
-                                           class="form-control @error('product_stock') is-invalid @enderror"
-                                           name="product_stock"
+                                           class="form-control @error('stock') is-invalid @enderror"
+                                           name="stock"
                                            placeholder="Enter Product stock."
-                                           value="{{ old('product_stock') }}"
-                                           required autocomplete="product_stock">
+                                           value="{{ old('stock') }}"
+                                           required autocomplete="stock">
 
-                                    @error('product_stock')
+                                    @error('stock')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -208,16 +205,16 @@
                                 <label for="description" class="col-md-4 col-form-label text-md-right">{{ __('Product Description') }}</label>
 
                                 <div class="col-md-6">
-                                    <textarea id="product_description"
-                                           class="form-control @error('product_description') is-invalid @enderror"
-                                           name="product_description"
+                                    <textarea id="description"
+                                           class="form-control @error('description') is-invalid @enderror"
+                                           name="description"
                                            placeholder="Enter Product description"
-                                           value="{{ old('product_description') }}"
-                                           required autocomplete="product_description"
+                                           value="{{ old('description') }}"
+                                           required autocomplete="description"
                                            autofocus>
                                     </textarea>
 
-                                    @error('product_description')
+                                    @error('description')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -228,9 +225,12 @@
                             {{-- Add Product Button --}}
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn btn-secondary">
                                         {{ __('Add Product') }}
                                     </button>
+                                    <a href="{{ route('admin.product.index') }}" class="btn btn btn-secondary">
+                                        {{ __('Cancel') }}
+                                    </a>
                                 </div>
                             </div>
 
@@ -240,50 +240,50 @@
             </div>
         </div>
     </div>
-    <script>
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            function getCategories(person_id){
-                // $('#loader').show();
-                $.ajax({
-                    /* the route pointing to the post function */
-                    url: '{{ route("admin.product.category") }}',
-                    type: 'POST',
-                    /* send the csrf-token and the input to the controller */
-                    data: {_token: CSRF_TOKEN, person_id: person_id},
-                    dataType: 'JSON',
-                    /* remind that 'data' is the response of the AjaxController */
-                    success: function (data) {
-                        var categories = '<select name="product_category_id"><option value>Select Category</option>';
-                        for (var i =0; i<data.length; i++){
-                            categories += '<option value="'+ data[i].product_category_id+'">'+data[i].product_category_name+'</option>';
-                        }
-                        categories += '</select>'
-                        $('#product_category_id').html(categories);
-                        // ("#loader").hide();
-                    }
-                });
-            }
-            function getSubcategories(category_id){
-                console.log(category_id);
-                // $('#loader').show();
-                $.ajax({
-                    /* the route pointing to the post function */
-                    url: '{{ route("admin.product.subcategory") }}',
-                    type: 'POST',
-                    /* send the csrf-token and the input to the controller */
-                    data: {_token: CSRF_TOKEN, category_id: category_id},
-                    dataType: 'JSON',
-                    /* remind that 'data' is the response of the AjaxController */
-                    success: function (data) {
-                        var subcategories = '<select name="product_subcategory_id"><option value>Select Sub Category</option>';
-                        for (var i =0; i<data.length; i++){
-                            subcategories += '<option value="'+ data[i].product_subcategory_id+'">'+data[i].product_subcategory_name+'</option>';
-                        }
-                        subcategories += '</select>'
-                        $('#product_subcategory_id').html(subcategories);
-                    }
-                });
-            }
-    </script>
+{{--    <script type="application/javascript">--}}
+{{--            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');--}}
+{{--            function getCategories(person_id){--}}
+{{--                // $('#loader').show();--}}
+{{--                $.ajax({--}}
+{{--                    /* the route pointing to the post function */--}}
+{{--                    url: '{{ route("admin.product.category") }}',--}}
+{{--                    type: 'POST',--}}
+{{--                    /* send the csrf-token and the input to the controller */--}}
+{{--                    data: {_token: CSRF_TOKEN, person_id: person_id},--}}
+{{--                    dataType: 'JSON',--}}
+{{--                    /* remind that 'data' is the response of the AjaxController */--}}
+{{--                    success: function (data) {--}}
+{{--                        var categories = '<select name="category_id"><option value selected disabled>Select Product Category</option>';--}}
+{{--                        for (var i =0; i<data.length; i++){--}}
+{{--                            categories += '<option value="'+ data[i].category_id+'">'+data[i].name+'</option>';--}}
+{{--                        }--}}
+{{--                        categories += '</select>'--}}
+{{--                        $('#category_id').html(categories);--}}
+{{--                        // ("#loader").hide();--}}
+{{--                    }--}}
+{{--                });--}}
+{{--            }--}}
+{{--            --}}{{--function getSubcategories(category_id){--}}
+{{--            --}}{{--    console.log(category_id);--}}
+{{--            --}}{{--    // $('#loader').show();--}}
+{{--            --}}{{--    $.ajax({--}}
+{{--            --}}{{--        /* the route pointing to the post function */--}}
+{{--            --}}{{--        url: '{{ route("admin.product.subcategory") }}',--}}
+{{--            --}}{{--        type: 'POST',--}}
+{{--            --}}{{--        /* send the csrf-token and the input to the controller */--}}
+{{--            --}}{{--        data: {_token: CSRF_TOKEN, category_id: category_id},--}}
+{{--            --}}{{--        dataType: 'JSON',--}}
+{{--            --}}{{--        /* remind that 'data' is the response of the AjaxController */--}}
+{{--            --}}{{--        success: function (data) {--}}
+{{--            --}}{{--            var subcategories = '<select name="subcategory_id"><option value>Select Sub Category</option>';--}}
+{{--            --}}{{--            for (var i =0; i<data.length; i++){--}}
+{{--            --}}{{--                subcategories += '<option value="'+ data[i].subcategory_id+'">'+data[i].subcategory_name+'</option>';--}}
+{{--            --}}{{--            }--}}
+{{--            --}}{{--            subcategories += '</select>'--}}
+{{--            --}}{{--            $('#subcategory_id').html(subcategories);--}}
+{{--            --}}{{--        }--}}
+{{--            --}}{{--    });--}}
+{{--            --}}{{--}--}}
+{{--    </script>--}}
 @endsection
 
